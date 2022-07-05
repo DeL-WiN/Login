@@ -5,12 +5,11 @@ import 'package:login_tutorial/model/user_details.dart';
 import 'package:login_tutorial/provider/provider.dart';
 
 class LoginController with ChangeNotifier {
-    UserProvider? userProvider;
+  UserProvider userProvider = UserProvider();
 
   var _googleSignin = GoogleSignIn();
   GoogleSignInAccount? googleSignInAccount;
   UserDetalils? userDetalils;
-
 
   // Future<UserDetalils?> initialize() async {
   //   final photos = await userProvider?.loadValue();
@@ -19,12 +18,14 @@ class LoginController with ChangeNotifier {
 
   googleLogin() async {
     this.googleSignInAccount = await _googleSignin.signIn();
-   final goog = this.userDetalils = new UserDetalils(
+    final goog = this.userDetalils = new UserDetalils(
       displaiyName: this.googleSignInAccount!.displayName,
       email: this.googleSignInAccount!.email,
       photoUrl: this.googleSignInAccount!.photoUrl,
     );
-    userProvider?.saveValue(goog);
+    // print(goog);
+    // userProvider?.saveValue(goog);
+    userProvider.saveValue(goog);
     notifyListeners();
   }
 
@@ -38,21 +39,21 @@ class LoginController with ChangeNotifier {
         fields: 'email, name, picture',
       );
 
-     final fb = this.userDetalils = new UserDetalils(
+      final fb = this.userDetalils = new UserDetalils(
         displaiyName: requestData['name'],
         email: requestData['email'],
         photoUrl: requestData['picture']['data']['url'] ?? '',
       );
-      userProvider?.saveValue(fb);
+      print(fb);
+      userProvider.saveValue(fb);
       notifyListeners();
     }
   }
 
-
-    logout() async {
-      this.googleSignInAccount = await _googleSignin.signOut();
-      await FacebookAuth.i.logOut();
-      userDetalils = null;
-      notifyListeners();
-    }
+  logout() async {
+    this.googleSignInAccount = await _googleSignin.signOut();
+    await FacebookAuth.i.logOut();
+    userDetalils = null;
+    notifyListeners();
   }
+}

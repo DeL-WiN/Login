@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
     // final users = LoginController().initialize();
     return Consumer<LoginController>(
         builder: (context, model, child) {
-          if (model.userProvider?.loadValue() != null) {
+          if (model.userProvider.loadValue() != null) {
             return  Center(
               child:  loggedInUI(model),
             );
@@ -67,11 +67,11 @@ class _LoginPageState extends State<LoginPage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         CircleAvatar(
-          backgroundImage: Image.network(model.userDetalils!.photoUrl ?? '').image,
+          backgroundImage: Image.network(model.userDetalils?.photoUrl ?? '').image,
           radius: 50,
         ),
-        Text(model.userDetalils!.displaiyName ?? ''),
-        Text(model.userDetalils!.email ?? ''),
+        Text(model.userDetalils?.displaiyName ?? ''),
+        Text(model.userDetalils?.email ?? ''),
 
         ActionChip(
             avatar: Icon(Icons.logout),
