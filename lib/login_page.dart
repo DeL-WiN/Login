@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:login_tutorial/controllers/login_controller.dart';
 import 'package:login_tutorial/provider/provider.dart';
@@ -21,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text('ttttt'),
         centerTitle: true,
-          backgroundColor: Colors.indigo,
+        backgroundColor: Colors.indigo,
       ),
       body: loginUI(
 
@@ -29,18 +28,18 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
- Widget loginUI() {
+  Widget loginUI() {
 
     return Consumer<LoginController> (
-      builder: (context, model, child) {
-        if(model.userDetalils != null) {
-          return Center(
-            child: loggedInUI(model),
-          );
-        }else {
-          return cash();
+        builder: (context, model, child) {
+          if(model.userDetalils != null) {
+            return Center(
+              child: loggedInUI(model),
+            );
+          }else {
+            return cash();
+          }
         }
-      }
     );
   }
 
@@ -48,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
     // final users = LoginController().initialize();
     return Consumer<LoginController>(
         builder: (context, model, child) {
-          if (model.userProvider.loadValue() != null) {
+          if (model.userP.user?.loadValue() != null) {
             return  Center(
               child:  loggedInUI(model),
             );
@@ -83,31 +82,32 @@ class _LoginPageState extends State<LoginPage> {
       ],
     );
 
-    }
   }
+}
 
-  loginControllers(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            child: Image.asset('assets/images/google.jpg',
+loginControllers(BuildContext context) {
+  return Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          child: Image.asset('assets/images/google.jpg',
             width: 240,),
-            onTap: () {
-              Provider.of<LoginController>(context, listen: false).googleLogin();
-            },
-          ),
-          SizedBox(height: 10,),
-          GestureDetector(
-            child: Image.asset('assets/images/fb.jpg',
-              width: 240,),
-            onTap: () {
-              Provider.of<LoginController>(context, listen: false).facebooklogin();
-            },
-          ),
-        ],
-      ),
-    );
-  }
+          onTap: () {
+            Provider.of<LoginController>(context, listen: false).googleLogin();
+          },
+        ),
+        SizedBox(height: 10,),
+        GestureDetector(
+          child: Image.asset('assets/images/fb.jpg',
+            width: 240,),
+          onTap: () {
+            Provider.of<LoginController>(context, listen: false).facebooklogin();
+          },
+        ),
+      ],
+    ),
+  );
+}
+
 

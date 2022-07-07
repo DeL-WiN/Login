@@ -1,31 +1,31 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:login_tutorial/model/user_details.dart';
 import 'package:login_tutorial/provider/provider.dart';
 
-class LoginController with ChangeNotifier {
-  UserProvider userProvider = UserProvider();
+import '../main.dart';
 
+class LoginController with ChangeNotifier {
+  UserP userP = UserP();
   var _googleSignin = GoogleSignIn();
   GoogleSignInAccount? googleSignInAccount;
   UserDetalils? userDetalils;
 
-  // Future<UserDetalils?> initialize() async {
-  //   final photos = await userProvider?.loadValue();
-  //   return photos;
-  // }
+
 
   googleLogin() async {
-    this.googleSignInAccount = await _googleSignin.signIn();
-    final goog = this.userDetalils = new UserDetalils(
-      displaiyName: this.googleSignInAccount!.displayName,
-      email: this.googleSignInAccount!.email,
-      photoUrl: this.googleSignInAccount!.photoUrl,
+    googleSignInAccount  = await _googleSignin.signIn();
+    final goog = userDetalils = UserDetalils(
+      displaiyName: googleSignInAccount?.displayName,
+      email: googleSignInAccount?.email,
+      photoUrl: googleSignInAccount?.photoUrl,
     );
-    // print(goog);
-    // userProvider?.saveValue(goog);
-    userProvider.saveValue(goog);
+   final id = userP.user?.saveValue(goog);
+    print(id);
+    print('3443');
     notifyListeners();
   }
 
@@ -39,19 +39,20 @@ class LoginController with ChangeNotifier {
         fields: 'email, name, picture',
       );
 
-      final fb = this.userDetalils = new UserDetalils(
-        displaiyName: requestData['name'],
-        email: requestData['email'],
+      final fb = userDetalils = UserDetalils(
+        displaiyName: requestData['name'] ?? '',
+        email: requestData['email'] ?? '',
         photoUrl: requestData['picture']['data']['url'] ?? '',
       );
-      print(fb);
-      userProvider.saveValue(fb);
+      final idd = userP.user?.saveValue(fb);
+      print(idd);
+      print(111);
       notifyListeners();
     }
   }
 
   logout() async {
-    this.googleSignInAccount = await _googleSignin.signOut();
+    googleSignInAccount = await _googleSignin.signOut();
     await FacebookAuth.i.logOut();
     userDetalils = null;
     notifyListeners();
