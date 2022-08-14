@@ -16,10 +16,10 @@ class UserProvider {
     UserDetalils(displaiyName: name, email: mail, photoUrl: photo);
 
     print(object.displaiyName);
-    // print(object.email);
-    // print(object.photoUrl);
-    // print('1');
-    // (await sharedPreferences).remove('list');
+    print(object.email);
+    print(object.photoUrl);
+    print('1');
+    (await sharedPreferences).remove('list');
     return object;
   }
 
@@ -36,44 +36,6 @@ class UserProvider {
   }
 }
 
-// class User extends ChangeNotifier {
-//   String? displaiyName;
-//   String? email;
-//   String? photoUrl;
-//
-//   User({this.displaiyName, this.email, this.photoUrl});
-//
-//   User.fromJson(Map<String, dynamic> json) {
-//     displaiyName = json['displaiyName'];
-//     photoUrl = json['displaiyName'];
-//     email = json['email'];
-//   }
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = new Map<String, dynamic>();
-//     data['displaiyName'] = this.displaiyName;
-//     data['photoUrl'] = this.photoUrl;
-//     data['email'] = this.email;
-//
-//     return data;
-//   }
-//
-//   final sh = SharedPreferences.getInstance();
-//
-//   login(User user) async {
-//     final list = <String>[
-//       user.displaiyName ?? '',
-//       user.email ?? '',
-//       user.photoUrl ?? ''
-//     ];
-//     (await sh).setStringList('list', list);
-//   }
-//
-//   logout(String key) async {
-//     (await sh).remove(key);
-//   }
-//
-//   getUser() async{}
-// }
 class UserP  extends ChangeNotifier {
    UserProvider? _user;
   UserProvider? get user => _user;

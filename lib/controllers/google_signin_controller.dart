@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -8,7 +10,6 @@ class GoogleSigninController with ChangeNotifier {
 
   login() async{
     this.googleSignInAccount = await _googleSingIn.signIn();
-
     notifyListeners();
   }
 

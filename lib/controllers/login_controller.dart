@@ -10,23 +10,30 @@ import '../main.dart';
 
 class LoginController with ChangeNotifier {
   UserP userP = UserP();
+  UserProvider userProvider = UserProvider();
   var _googleSignin = GoogleSignIn();
   GoogleSignInAccount? googleSignInAccount;
   UserDetalils? userDetalils;
 
-
+  Future<UserDetalils?> initialize() async {
+    final photos = await userP.user?.loadValue();
+    return photos;
+  }
 
   googleLogin() async {
     googleSignInAccount  = await _googleSignin.signIn();
-    final goog = userDetalils = UserDetalils(
+    final goog =  userDetalils = await UserDetalils(
       displaiyName: googleSignInAccount?.displayName,
       email: googleSignInAccount?.email,
       photoUrl: googleSignInAccount?.photoUrl,
     );
-   final id = userP.user?.saveValue(goog);
+   // final id = await userP.user?.saveValue(goog);
+   final id = await userProvider.saveValue(goog);
     print(id);
     print('3443');
     notifyListeners();
+    return id;
+
   }
 
   facebooklogin() async {

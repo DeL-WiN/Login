@@ -44,10 +44,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   cash() {
-    // final users = LoginController().initialize();
     return Consumer<LoginController>(
         builder: (context, model, child) {
-          if (model.userP.user?.loadValue() != null) {
+          if (model.initialize() != null) {
             return  Center(
               child:  loggedInUI(model),
             );
